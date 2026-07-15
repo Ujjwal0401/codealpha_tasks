@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Calculator</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main class="calculator">
+    <header class="calc-header">
+      <h1>Calculator</h1>
+    </header>
+
+    <section class="display">
+      <div id="expression" class="expression" aria-hidden="true"></div>
+      <div id="result" class="result">0</div>
+    </section>
+
+    <section class="buttons" role="group" aria-label="Calculator buttons">
+      <button class="btn wide" data-action="clear" title="All Clear">AC</button>
+      <button class="btn" data-action="del" title="Delete">DEL</button>
+      <button class="btn operator" data-value="/">÷</button>
+
+      <button class="btn" data-value="7">7</button>
+      <button class="btn" data-value="8">8</button>
+      <button class="btn" data-value="9">9</button>
+      <button class="btn operator" data-value="*">×</button>
+
+      <button class="btn" data-value="4">4</button>
+      <button class="btn" data-value="5">5</button>
+      <button class="btn" data-value="6">6</button>
+      <button class="btn operator" data-value="-">−</button>
+
+      <button class="btn" data-value="1">1</button>
+      <button class="btn" data-value="2">2</button>
+      <button class="btn" data-value="3">3</button>
+      <button class="btn operator" data-value="+">+</button>
+
+      <button class="btn" data-value="0">0</button>
+      <button class="btn" data-value=".">.</button>
+      <button class="btn equals" data-action="equals">=</button>
+    </section>
+
+    <footer class="hint">You can also use your keyboard. Enter = or Return to compute.</footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
