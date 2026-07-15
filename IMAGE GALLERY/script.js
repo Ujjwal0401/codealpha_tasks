@@ -11,7 +11,7 @@ const lightboxNext = document.querySelector('.lightbox-next');
 let currentImageIndex = 0;
 let filteredImages = [];
 
-// Filter Functionality
+// ==================== FILTER FUNCTIONALITY ==================== //
 filterButtons.forEach(button => {
     button.addEventListener('click', () => {
         // Remove active class from all buttons
@@ -47,31 +47,35 @@ function filterImages(category) {
     });
 }
 
-// Lightbox Functionality
+// ==================== LIGHTBOX FUNCTIONALITY ==================== //
 galleryImages.forEach((item, index) => {
     item.addEventListener('click', () => {
-        // Get the image and caption from the clicked item
-        const img = item.querySelector('img');
-        const caption = item.querySelector('h3');
-        
-        // Set lightbox content
-        lightboxImage.src = img.src;
-        lightboxCaption.textContent = caption.textContent;
-        
-        // Show lightbox
-        lightbox.classList.add('active');
-        
-        // Store current index for navigation
-        currentImageIndex = Array.from(galleryImages).indexOf(item);
+        if (item.style.display !== 'none') {
+            // Get the image and caption from the clicked item
+            const img = item.querySelector('img');
+            const caption = item.querySelector('h3');
+            
+            // Set lightbox content
+            lightboxImage.src = img.src;
+            lightboxCaption.textContent = caption.textContent;
+            
+            // Show lightbox
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+            
+            // Store current index for navigation
+            currentImageIndex = Array.from(galleryImages).indexOf(item);
+        }
     });
 });
 
-// Close Lightbox
+// ==================== CLOSE LIGHTBOX ==================== //
 lightboxClose.addEventListener('click', closeLightbox);
 
 function closeLightbox() {
     lightbox.classList.remove('active');
     lightboxImage.src = '';
+    document.body.style.overflow = 'auto';
 }
 
 // Close lightbox when clicking outside the image
@@ -81,7 +85,7 @@ lightbox.addEventListener('click', (e) => {
     }
 });
 
-// Keyboard navigation for lightbox
+// ==================== KEYBOARD NAVIGATION ==================== //
 document.addEventListener('keydown', (e) => {
     if (!lightbox.classList.contains('active')) return;
     
@@ -94,7 +98,7 @@ document.addEventListener('keydown', (e) => {
     }
 });
 
-// Navigation buttons
+// ==================== NAVIGATION BUTTONS ==================== //
 lightboxPrev.addEventListener('click', showPreviousImage);
 lightboxNext.addEventListener('click', showNextImage);
 
@@ -146,53 +150,7 @@ function showNextImage() {
     }, 10);
 }
 
-// Prevent body scroll when lightbox is open
-lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) {
-        document.body.style.overflow = 'auto';
-    }
-});
-
-// Show lightbox event listener
-document.addEventListener('click', (e) => {
-    if (e.target.closest('.gallery-item') && lightbox.classList.contains('active')) {
-        document.body.style.overflow = 'hidden';
-    }
-});
-
-// Initialize gallery
-window.addEventListener('load', () => {
-    console.log('Gallery loaded successfully!');
-    console.log(`Total images: ${galleryImages.length}`);
-});
-
-// Add smooth transitions
-const style = document.createElement('style');
-style.textContent = `
-    * {
-        transition: all 0.3s ease;
-    }
-`;
-document.head.appendChild(style);
-
-// Image lazy loading simulation
-if ('IntersectionObserver' in window) {
-    const imageObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const img = entry.target.querySelector('img');
-                if (img && !img.src) {
-                    img.src = img.dataset.src;
-                    observer.unobserve(entry.target);
-                }
-            }
-        });
-    });
-
-    galleryImages.forEach(item => imageObserver.observe(item));
-}
-
-// Add touch support for mobile
+// ==================== TOUCH SUPPORT FOR MOBILE ==================== //
 let touchStartX = 0;
 let touchEndX = 0;
 
@@ -217,6 +175,12 @@ function handleSwipe() {
     }
 }
 
-// Add console feedback
-console.log('%c Gallery Gallery Loaded! %c', 'color: #667eea; font-size: 16px; font-weight: bold;', 'color: #764ba2; font-size: 16px; font-weight: bold;');
-console.log('Features: Filter by category, Lightbox view, Keyboard navigation, Touch support');
+// ==================== INITIALIZATION ==================== //
+window.addEventListener('load', () => {
+    console.log('%c🎨 Professional Image Gallery Loaded! 🎨', 'color: #667eea; font-size: 16px; font-weight: bold;');
+    console.log(`Total Images: ${galleryImages.length}`);
+    console.log('✓ Category Filtering');
+    console.log('✓ Lightbox View');
+    console.log('✓ Keyboard Navigation (← → Escape)');
+    console.log('✓ Touch/Swipe Support');
+});
